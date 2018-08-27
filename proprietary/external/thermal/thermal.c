@@ -11,11 +11,13 @@
 #include <netutils/ifc.h>
 
 /* for Stonex */
-#define MTK_THERMAL_PA_VIA_ATCMD
+/* #define MTK_THERMAL_PA_VIA_ATCMD */
 /* end */
 
-#define THERMAL_MD_TP
-#define MD_UL_DR_THROTTLE
+#define NEVER
+
+// #define THERMAL_MD_TP
+//#define MD_UL_DR_THROTTLE
 /* make it compatible for Stonex 
 #define MD_3G_UL_THROTTLE
 */
@@ -238,7 +240,7 @@ static void exe_cmd(int wifi_ifc, int level)
 			TM_INFO_LOG("2. executing %s failed: %s", THROTTLE_SCRIPT_PATH, strerror(errno));
 		}
 	} else {
-		TM_INFO_LOG("failed to access %s", THROTTLE_SCRIPT_PATH);
+		TM_INFO_LOG("exec failed to access %s wifi :%d", THROTTLE_SCRIPT_PATH,wifi_ifc);
 	}
 }
 #endif /* NEVER */
@@ -1622,12 +1624,12 @@ int main(int argc, char *argv[])
 #ifdef NEVER
 		/* Check throttl.sh */
 		if (0 == access(THROTTLE_SCRIPT_PATH, R_OK | X_OK)) {
-			ret = chmod(THROTTLE_SCRIPT_PATH, S_ISUID | S_ISVTX | S_IRUSR | S_IXUSR);
+			/* ret = chmod(THROTTLE_SCRIPT_PATH, S_ISUID | S_ISVTX | S_IRUSR | S_IXUSR);
 			if (ret == 0)	{
 				TM_INFO_LOG("Success to chomd\n");
 			} else {
 				TM_INFO_LOG("Fail to chmod %x\n", ret);
-			}
+			} */
 		} else {
 			TM_INFO_LOG("failed to access %s", THROTTLE_SCRIPT_PATH);
 		}
